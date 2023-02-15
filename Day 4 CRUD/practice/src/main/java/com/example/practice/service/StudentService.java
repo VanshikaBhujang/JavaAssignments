@@ -64,4 +64,11 @@ public class StudentService {
         return this.studentRepo.findById(id).get();
     }
 
+    public List<Student> getAgeGreaterThan(int age){
+        return this.studentRepo.findByAgeGreaterThanEqual(age);
+    }
+    public List<Student> getNameEndingWith(String end){
+        return this.studentRepo.findBynameEndingWith(end);
+    }
+
 }

@@ -35,4 +35,10 @@ public class StudentController {
     public Student getStudent(@PathVariable("id") int id){
         return this.studentService.getStudentByID(id);
     }
+
+    @GetMapping("/ageGreaterthan/{age}")
+    public List<Student> getAgeGreaterThan(@PathVariable int age){return this.studentService.getAgeGreaterThan(age); }
+
+    @GetMapping("/nameEndingwith/{end}")
+    public List<Student> getNameEndingWith(@PathVariable String end){return this.studentService.getNameEndingWith(end); }
 }
