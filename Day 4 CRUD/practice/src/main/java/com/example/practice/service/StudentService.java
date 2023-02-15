@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -42,18 +43,22 @@ public class StudentService {
             return String.format("Student with %d deleted successfully.",id);
         }
         else{
-            return String.format("Student with %d doesn't exist to update.", id);
+            return String.format("Student with %d doesn't exist to delete.", id);
         }
 
     }
     //update student
     public String updateStudent(Student student)
     {
-        if(this.studentRepo.existsById(student.getId())) {
-            this.studentRepo.save(student);
+        Optional<Student> optionalStudent = studentRepo.findById(student.getId());
+
+        if (optionalStudent.isPresent()) {
+            Student existingStudent = optionalStudent.get();
+            existingStudent.setName(student.getName());
+            existingStudent.setAge(student.getAge());
+            studentRepo.save(existingStudent);
             return "Student details are updated.";
-        }
-        else{
+        } else {
             return String.format("Student with %d doesn't exist to update.", student.getId());
         }
     }
